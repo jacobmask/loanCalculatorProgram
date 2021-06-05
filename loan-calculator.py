@@ -21,16 +21,14 @@ def main():
         firstTimeUI()
 
 def firstTimeUI():
-    loans = {}
     loanName = input("Enter loan name: ")
     print("Insert the yearly interest rate without symbols")
     interest = input("Example: 2.5 not .025: ")
     amount = input("Total amount of loan: ")
-    loans[loanName] = [amount, interest]
     data = [[loanName, amount, interest]]
     df = pd.DataFrame(data, columns = ['Name', 'Amount', 'Interest'])
     print(df)
-    df.to_csv("data.csv")
+    df.to_csv("data.csv",index=False)
     print("Congrats on inserting your first loan!")
     UI()
 
@@ -60,8 +58,7 @@ def UI():
 
 def viewLoans():
     df = pd.read_csv("data.csv")
-    var = df.iloc[0:10000, 1:4]
-    print(var)
+    print(df)
 
 
 def changeLoans():
@@ -85,16 +82,26 @@ def changeLoans():
             print("\nEntry invalid, try again\n")
 
 def addLoan():
-    print("test1")
+    df = pd.read_csv("data.csv")
+    print('\n',df,'\n')
+    loanName = input("Enter loan name: ")
+    print("Insert the yearly interest rate without symbols")
+    interest = input("Example: 2.5 not .025: ")
+    amount = input("Total amount of loan: ")
+    df2 = pd.DataFrame([[loanName, amount, interest]], columns=['Name','Amount','Interest'])
+    frames = [df, df2]
+    df = pd.concat(frames)
+    df.to_csv("data.csv", index=False)
+    print('\n',df,'\n')
 
 def updateLoan():
-    print("Test2")
+    print("Not yet complete")
 
 def deleteLoan():
-    print("Test4")
+    print("Not yet complete")
 
 def calculator():
-    print("TESt3")
+    print("Not yet complete")
 
 
 
