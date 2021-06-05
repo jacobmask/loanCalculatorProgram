@@ -5,20 +5,21 @@ Modified: 6/5/2021
 Notes: An app that calculates multiple monthly loan payments.
 """
 
+import pandas as pd
 import os
+import time
 
 def main():
-    if os.path.exists("data.txt"):
+    if os.path.exists("data.csv"):
         print("Loading your data")
-        firstTimeUI()
+        UI()
     else:
         print("Welcome new user")
-        print("Creating a data.txt file for your storage")
-        dataFile = open("data.txt", "w+")
-        dataFile.write("test")
-        dataFile.close
+        print("Creating a data.csv file for your storage")
+        dataFile = open("data.csv", "w+")
+        dataFile.close()
         firstTimeUI()
-s
+
 def firstTimeUI():
     loans = {}
     loanName = input("Enter loan name: ")
@@ -26,6 +27,76 @@ def firstTimeUI():
     interest = input("Example: 2.5 not .025: ")
     amount = input("Total amount of loan: ")
     loans[loanName] = [amount, interest]
+    data = [[loanName, amount, interest]]
+    df = pd.DataFrame(data, columns = ['Name', 'Amount', 'Interest'])
+    print(df)
+    df.to_csv("data.csv")
+    print("Congrats on inserting your first loan!")
+    UI()
+
+def UI():
+    entry = "null"
+    while entry != "Z":
+        print("Type a letter from the below options")
+        print("A: View Loans")
+        print("B: Change/Add/Remove loans")
+        print("C: Calculator")
+        #print("D: Payments Simulator")
+        print("Y: Restart program")
+        print("Z: Close program")
+        entry = input("Type a single letter: ")
+        if entry == "A" or entry == "a":
+            viewLoans()
+        elif entry == "B" or entry == "b":
+            changeLoans()
+        elif entry == "C" or entry == "c":
+            calculator()
+        elif entry == "Y" or entry == "y":
+            main()
+        elif entry == "Z" or entry == "z":
+            exit()
+        else:
+            print("\nEntry invalid, try again.\n")
+
+def viewLoans():
+    df = pd.read_csv("data.csv")
+    var = df.iloc[0:10000, 1:4]
+    print(var)
+
+
+def changeLoans():
+    entry = "null"
+    while entry != "Z":
+        print("\n\n\nUpdate Loan Options:")
+        print("A: Add a loan")
+        print("B: Update a loan")
+        print("C: Delete a loan")
+        print("Z: Back to main menu")
+        entry = input("Type a single letter: ")
+        if entry == "A" or entry == "a":
+            addLoan()
+        elif entry == "B" or entry == "b":
+            updateLoan()
+        elif entry == "C" or entry == "c":
+            deleteLoan()
+        elif entry == "Z" or entry == "z":
+            UI()
+        else:
+            print("\nEntry invalid, try again\n")
+
+def addLoan():
+    print("test1")
+
+def updateLoan():
+    print("Test2")
+
+def deleteLoan():
+    print("Test4")
+
+def calculator():
+    print("TESt3")
+
+
 
 if __name__ == '__main__':
     main()
