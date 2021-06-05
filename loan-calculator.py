@@ -18,7 +18,7 @@ def main():
         dataFile.write("test")
         dataFile.close
         firstTimeUI()
-
+s
 def firstTimeUI():
     loans = {}
     loanName = input("Enter loan name: ")
